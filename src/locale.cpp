@@ -40,7 +40,7 @@
 #include "__undef_macros"
 
 // On Linux, wint_t and wchar_t have different signed-ness, and this causes
-// lots of noise in the build log, but no bugs that I know of. 
+// lots of noise in the build log, but no bugs that I know of.
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wsign-conversion"
 #endif
@@ -198,33 +198,33 @@ locale::__imp::__imp(size_t refs)
 {
     facets_.clear();
     install(&make<_VSTD::collate<char> >(1u));
-    install(&make<_VSTD::collate<wchar_t> >(1u));
+    // install(&make<_VSTD::collate<wchar_t> >(1u));
     install(&make<_VSTD::ctype<char> >(nullptr, false, 1u));
-    install(&make<_VSTD::ctype<wchar_t> >(1u));
+    // install(&make<_VSTD::ctype<wchar_t> >(1u));
     install(&make<codecvt<char, char, mbstate_t> >(1u));
-    install(&make<codecvt<wchar_t, char, mbstate_t> >(1u));
+    // install(&make<codecvt<wchar_t, char, mbstate_t> >(1u));
     install(&make<codecvt<char16_t, char, mbstate_t> >(1u));
     install(&make<codecvt<char32_t, char, mbstate_t> >(1u));
     install(&make<numpunct<char> >(1u));
-    install(&make<numpunct<wchar_t> >(1u));
+    // install(&make<numpunct<wchar_t> >(1u));
     install(&make<num_get<char> >(1u));
-    install(&make<num_get<wchar_t> >(1u));
+    // install(&make<num_get<wchar_t> >(1u));
     install(&make<num_put<char> >(1u));
-    install(&make<num_put<wchar_t> >(1u));
+    // install(&make<num_put<wchar_t> >(1u));
     install(&make<moneypunct<char, false> >(1u));
     install(&make<moneypunct<char, true> >(1u));
-    install(&make<moneypunct<wchar_t, false> >(1u));
-    install(&make<moneypunct<wchar_t, true> >(1u));
+    // install(&make<moneypunct<wchar_t, false> >(1u));
+    // install(&make<moneypunct<wchar_t, true> >(1u));
     install(&make<money_get<char> >(1u));
-    install(&make<money_get<wchar_t> >(1u));
+    // install(&make<money_get<wchar_t> >(1u));
     install(&make<money_put<char> >(1u));
-    install(&make<money_put<wchar_t> >(1u));
+    // install(&make<money_put<wchar_t> >(1u));
     install(&make<time_get<char> >(1u));
-    install(&make<time_get<wchar_t> >(1u));
+    // install(&make<time_get<wchar_t> >(1u));
     install(&make<time_put<char> >(1u));
-    install(&make<time_put<wchar_t> >(1u));
+    // install(&make<time_put<wchar_t> >(1u));
     install(&make<_VSTD::messages<char> >(1u));
-    install(&make<_VSTD::messages<wchar_t> >(1u));
+    // install(&make<_VSTD::messages<wchar_t> >(1u));
 }
 
 locale::__imp::__imp(const string& name, size_t refs)
@@ -781,7 +781,7 @@ const ctype_base::mask ctype_base::xdigit;
 const ctype_base::mask ctype_base::blank;
 const ctype_base::mask ctype_base::alnum;
 const ctype_base::mask ctype_base::graph;
-    
+
 locale::id ctype<wchar_t>::id;
 
 ctype<wchar_t>::~ctype()

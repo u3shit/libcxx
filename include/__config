@@ -11,6 +11,15 @@
 #ifndef _LIBCPP_CONFIG
 #define _LIBCPP_CONFIG
 
+#define _LIBCPP_ABI_UNSTABLE
+
+#ifdef __vita__
+#define _LIBCPP_HAS_THREAD_API_PTHREAD
+#define _LIBCPP_HAS_NO_LIBRARY_ALIGNED_ALLOCATION
+#define __GLIBCXX__
+#define _LIBCPP_PROVIDES_DEFAULT_RUNE_TABLE
+#endif
+
 #if defined(_MSC_VER) && !defined(__clang__)
 #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER

@@ -96,6 +96,8 @@ thread::hardware_concurrency() _NOEXCEPT
     SYSTEM_INFO info;
     GetSystemInfo(&info);
     return info.dwNumberOfProcessors;
+#elif defined(__vita__)
+    return 4;
 #else  // defined(CTL_HW) && defined(HW_NCPU)
     // TODO: grovel through /proc or check cpuid on x86 and similar
     // instructions on other architectures.
@@ -136,7 +138,7 @@ class _LIBCPP_HIDDEN __hidden_allocator
 {
 public:
     typedef T  value_type;
-    
+
     T* allocate(size_t __n)
         {return static_cast<T*>(::operator new(__n * sizeof(T)));}
     void deallocate(T* __p, size_t) {::operator delete(static_cast<void*>(__p));}
