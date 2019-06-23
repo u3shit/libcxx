@@ -83,26 +83,26 @@ ios_base::Init::Init()
 {
 #ifndef _LIBCPP_HAS_NO_STDIN
     istream* cin_ptr  = ::new(cin)  istream(::new(__cin)  __stdinbuf <char>(stdin, &mb_cin));
-    wistream* wcin_ptr  = ::new(wcin)  wistream(::new(__wcin)  __stdinbuf <wchar_t>(stdin, &mb_wcin));
+    // wistream* wcin_ptr  = ::new(wcin)  wistream(::new(__wcin)  __stdinbuf <wchar_t>(stdin, &mb_wcin));
 #endif
 #ifndef _LIBCPP_HAS_NO_STDOUT
     ostream* cout_ptr = ::new(cout) ostream(::new(__cout) __stdoutbuf<char>(stdout, &mb_cout));
-    wostream* wcout_ptr = ::new(wcout) wostream(::new(__wcout) __stdoutbuf<wchar_t>(stdout, &mb_wcout));
+    // wostream* wcout_ptr = ::new(wcout) wostream(::new(__wcout) __stdoutbuf<wchar_t>(stdout, &mb_wcout));
 #endif
     ostream* cerr_ptr = ::new(cerr) ostream(::new(__cerr) __stdoutbuf<char>(stderr, &mb_cerr));
                         ::new(clog) ostream(cerr_ptr->rdbuf());
-    wostream* wcerr_ptr = ::new(wcerr) wostream(::new(__wcerr) __stdoutbuf<wchar_t>(stderr, &mb_wcerr));
-                          ::new(wclog) wostream(wcerr_ptr->rdbuf());
+    // wostream* wcerr_ptr = ::new(wcerr) wostream(::new(__wcerr) __stdoutbuf<wchar_t>(stderr, &mb_wcerr));
+    //                       ::new(wclog) wostream(wcerr_ptr->rdbuf());
 
 #if !defined(_LIBCPP_HAS_NO_STDIN) && !defined(_LIBCPP_HAS_NO_STDOUT)
     cin_ptr->tie(cout_ptr);
-    wcin_ptr->tie(wcout_ptr);
+    // wcin_ptr->tie(wcout_ptr);
 #endif
     _VSTD::unitbuf(*cerr_ptr);
-    _VSTD::unitbuf(*wcerr_ptr);
+    // _VSTD::unitbuf(*wcerr_ptr);
 #ifndef _LIBCPP_HAS_NO_STDOUT
     cerr_ptr->tie(cout_ptr);
-    wcerr_ptr->tie(wcout_ptr);
+    // wcerr_ptr->tie(wcout_ptr);
 #endif
 }
 
