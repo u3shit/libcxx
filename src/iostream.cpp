@@ -110,15 +110,15 @@ ios_base::Init::~Init()
 {
 #ifndef _LIBCPP_HAS_NO_STDOUT
     ostream* cout_ptr = reinterpret_cast<ostream*>(cout);
-    wostream* wcout_ptr = reinterpret_cast<wostream*>(wcout);
+    // wostream* wcout_ptr = reinterpret_cast<wostream*>(wcout);
     cout_ptr->flush();
-    wcout_ptr->flush();
+    // wcout_ptr->flush();
 #endif
 
     ostream* clog_ptr = reinterpret_cast<ostream*>(clog);
-    wostream* wclog_ptr = reinterpret_cast<wostream*>(wclog);
+    // wostream* wclog_ptr = reinterpret_cast<wostream*>(wclog);
     clog_ptr->flush();
-    wclog_ptr->flush();
+    // wclog_ptr->flush();
 }
 
 _LIBCPP_END_NAMESPACE_STD
