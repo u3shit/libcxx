@@ -33,6 +33,9 @@
 #if !defined(_LIBCPP_HAS_NO_MONOTONIC_CLOCK)
 #if __APPLE__
 #include <mach/mach_time.h>  // mach_absolute_time, mach_timebase_info_data_t
+#elif defined(__vita__)
+#include <psp2/rtc.h>
+#include <psp2/kernel/processmgr.h>
 #elif !defined(_LIBCPP_WIN32API) && !defined(CLOCK_MONOTONIC)
 #error "Monotonic clock not implemented"
 #endif
@@ -75,7 +78,15 @@ system_clock::now() _NOEXCEPT
                        static_cast<__int64>(ft.dwLowDateTime)};
   return time_point(duration_cast<duration>(d - nt_to_unix_epoch));
 #else
-#if defined(_LIBCPP_USE_CLOCK_GETTIME) && defined(CLOCK_REALTIME)
+#if defined(__vita__)
+  // Vita epoch = 0001-01-01 00:00:00
+  static _LIBCPP_CONSTEXPR const seconds vita_to_unix_epoch{62135596800};
+
+  SceRtcTick tick;
+  if (int err = sceRtcGetCurrentTick(&tick))
+    __throw_system_error(err & 0xff, "sceRtcGetCurrentTick() failed");
+  return time_point(microseconds(tick.tick) - vita_to_unix_epoch);
+#elif defined(_LIBCPP_USE_CLOCK_GETTIME) && defined(CLOCK_REALTIME)
   struct timespec tp;
   if (0 != clock_gettime(CLOCK_REALTIME, &tp))
     __throw_system_error(errno, "clock_gettime(CLOCK_REALTIME) failed");
@@ -207,6 +218,14 @@ steady_clock::now() _NOEXCEPT
     if (0 != clock_gettime(CLOCK_MONOTONIC, &tp))
         __throw_system_error(errno, "clock_gettime(CLOCK_MONOTONIC) failed");
     return time_point(seconds(tp.tv_sec) + nanoseconds(tp.tv_nsec));
+}
+
+#elif defined(__vita__)
+
+steady_clock::time_point
+steady_clock::now() _NOEXCEPT
+{
+  return time_point(microseconds(sceKernelGetProcessTimeWide()));
 }
 
 #else
