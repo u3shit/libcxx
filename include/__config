@@ -20,6 +20,11 @@
 #define _LIBCPP_PROVIDES_DEFAULT_RUNE_TABLE
 #endif
 
+#ifdef _MSC_VER
+#define _LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS // static build
+#define _LIBCPP_NO_AUTO_LINK // thank you I can manage the link flags myself
+#endif
+
 #if defined(_MSC_VER) && !defined(__clang__)
 #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
@@ -997,8 +1002,9 @@ template <unsigned> struct __static_assert_check {};
 
 // If we are getting operator new from the MSVC CRT, then allocation overloads
 // for align_val_t were added in 19.12, aka VS 2017 version 15.3.
-#if defined(_LIBCPP_MSVCRT) && defined(_MSC_VER) && _MSC_VER < 1912
+#if defined(_LIBCPP_MSVCRT) && defined(_MSC_VER) && _MSC_VER < 1912 && !defined(_LIBCPP_NO_VCRUNTIME)
 #  define _LIBCPP_HAS_NO_LIBRARY_ALIGNED_ALLOCATION
+#  define _LIBCPP_DEFER_NEW_TO_VCRUNTIME
 #elif defined(_LIBCPP_ABI_MICROSOFT) && !defined(_LIBCPP_NO_VCRUNTIME)
 #  define _LIBCPP_DEFER_NEW_TO_VCRUNTIME
 #  if !defined(__cpp_aligned_new)

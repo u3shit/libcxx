@@ -1489,6 +1489,10 @@ class __alloc_func<_Fp, _Ap, _Rp(_ArgTypes...)>
     _LIBCPP_INLINE_VISIBILITY
     const _Target& __target() const { return __f_.first(); }
 
+  // thank you M$ defining every possible identifier to some junk
+#ifdef __allocator
+#undef __allocator
+#endif
     _LIBCPP_INLINE_VISIBILITY
     const _Alloc& __allocator() const { return __f_.second(); }
 
