@@ -609,7 +609,7 @@ private:
 
 // [string.view.comparison]
 // operator ==
-template<class _CharT, class _Traits>
+template<class _CharT, class _Traits, int dummy = 0>
 _LIBCPP_CONSTEXPR_AFTER_CXX11 _LIBCPP_INLINE_VISIBILITY
 bool operator==(basic_string_view<_CharT, _Traits> __lhs,
                 basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
@@ -618,7 +618,7 @@ bool operator==(basic_string_view<_CharT, _Traits> __lhs,
     return __lhs.compare(__rhs) == 0;
 }
 
-template<class _CharT, class _Traits>
+template<class _CharT, class _Traits, int dummy = 1>
 _LIBCPP_CONSTEXPR_AFTER_CXX11 _LIBCPP_INLINE_VISIBILITY
 bool operator==(basic_string_view<_CharT, _Traits> __lhs,
                 typename common_type<basic_string_view<_CharT, _Traits> >::type __rhs) _NOEXCEPT
@@ -627,7 +627,7 @@ bool operator==(basic_string_view<_CharT, _Traits> __lhs,
     return __lhs.compare(__rhs) == 0;
 }
 
-template<class _CharT, class _Traits>
+template<class _CharT, class _Traits, int dummy = 2>
 _LIBCPP_CONSTEXPR_AFTER_CXX11 _LIBCPP_INLINE_VISIBILITY
 bool operator==(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
                 basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
